@@ -13,23 +13,19 @@ BINARY SEARCH VERSION 1:
 Write a Recursive Binary Search that returns a Boolean value indicating if
 targetNum is within the nums array.
 *******************************************************************/
-
+const arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const recurBSearch = (nums, targetNum) => {
 
-  if (nums.length === 1){
-    if (nums[0] === targetNum){
-      return true
-    }
+  if (nums.length === 0){
   return false;
   }
-  let mid = nums.length/2
 
-  if (nums.length % 2 !== 0){
-    mid = Math.ceil(nums.length/2)
-  }
+  let mid = Math.floor(nums.length/2);
 
-  let front = nums.slice(0, mid)
-  let rear = nums.slice(mid + 1)
+
+  let front = nums.slice(0, mid);
+  let rear = nums.slice(mid + 1);
 
   console.log(mid, front, rear, nums[mid])
 
@@ -42,7 +38,7 @@ const recurBSearch = (nums, targetNum) => {
   }
 }
 
-console.log(recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9], 7))
+// console.log(recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9], 7))
 
 /*******************************************************************
 BINARY SEARCH VERSION 2:
@@ -62,23 +58,27 @@ const iterBSearch = (nums, targetNum) => {
   // if targetNum is larger than the value in the middle, we know targetNum is
   // not between the current lower and current middle, so reassign the lowerIdx
   // to the middle (ie cut off the left half of the array)
-  while (nums.length > 0) {
-    let lowerIdx = nums[0];
-    let upperIdx = nums[nums.length - 1];
-    let middleIdx = nums.length/2
+  let lowerIdx = 0;
+  let upperIdx = nums.length - 1;
+  let middleIdx;
 
-    if (nums.length % 2 !== 0){
-      middleIdx = Math.ceil(nums.length/2)
-    }
+  if (targetNum > nums[nums.length - 1] || targetNum < nums[0]) {
+    return false;
+  }
+
+  while (lowerIdx <= upperIdx) {
+    middleIdx = Math.floor((lowerIdx + upperIdx)/2);
+
+    console.log(lowerIdx, middleIdx, upperIdx, nums)
     if (targetNum > nums[middleIdx]) {
-      lowerIdx = middleIdx;
+      lowerIdx = middleIdx + 1;
     } else if (targetNum < nums[middleIdx]) {
-      upperIdx = middleIdx;
+      upperIdx = middleIdx - 1;
     } else {
       return true;
     }
-    return false;
   }
+  return false;
 
   // if targetNum is less than the value in the middle, we know targetNum is not
   // between the current upper and current middle, so reassign the upperIdx
@@ -90,6 +90,7 @@ const iterBSearch = (nums, targetNum) => {
   // if we finish our while loop and haven't returned true, we've looked over
   // the entire array and didn't find targetNum, so return false
 }
+console.log(iterBSearch(arr1, 7))
 
 
 /*******************************************************************

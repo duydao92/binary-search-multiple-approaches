@@ -27,7 +27,7 @@ const recurBSearch = (nums, targetNum) => {
   let front = nums.slice(0, mid);
   let rear = nums.slice(mid + 1);
 
-  console.log(mid, front, rear, nums[mid])
+  // console.log(mid, front, rear, nums[mid])
 
   if (targetNum < nums[mid]){
     return recurBSearch(front, targetNum);
@@ -69,7 +69,7 @@ const iterBSearch = (nums, targetNum) => {
   while (lowerIdx <= upperIdx) {
     middleIdx = Math.floor((lowerIdx + upperIdx)/2);
 
-    console.log(lowerIdx, middleIdx, upperIdx, nums)
+    // console.log(lowerIdx, middleIdx, upperIdx, nums)
     if (targetNum > nums[middleIdx]) {
       lowerIdx = middleIdx + 1;
     } else if (targetNum < nums[middleIdx]) {
@@ -90,7 +90,7 @@ const iterBSearch = (nums, targetNum) => {
   // if we finish our while loop and haven't returned true, we've looked over
   // the entire array and didn't find targetNum, so return false
 }
-console.log(iterBSearch(arr1, 7))
+// console.log(iterBSearch(arr1, 7))
 
 
 /*******************************************************************
@@ -99,11 +99,35 @@ BINARY SEARCH VERSION 3:
 Write a Recursive Binary Search that returns the Index value of targetNum if it
 is in the nums array, and -1 if it is not found.
 *******************************************************************/
-
+// const arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const recurBSearchIdx = (nums, targetNum) => {
+  let original = nums
   // this implementation is identical to version 1, except rather than
   // returning true/false, return the index where you found the item
   // (instead of true) or -1 (instead of false).
+
+  if (nums.length === 0){
+    return -1;
+    }
+  
+    let midIdx = Math.floor(nums.length/2);
+  
+  
+    let front = nums.slice(0, midIdx);
+    let rear = nums.slice(midIdx + 1);
+  
+    console.log(midIdx, front, rear, nums[midIdx], "targetNum: " + targetNum)
+  
+    if (targetNum < nums[midIdx]){
+      return recurBSearchIdx(front, targetNum);
+    } else if (targetNum > nums[midIdx]){
+      return recurBSearchIdx(rear, targetNum);
+    } else if (targetNum === nums[midIdx]){
+      console.log("midIndex: " + midIdx);
+      console.log("Index of nums: " + nums.indexOf(targetNum))
+      // console.log("original array: " + originalArr);
+      return arr1.indexOf(targetNum);
+    }
 
   // HINT: the index value you return should be the index in the ORIGINAL array
   // and not the index of the sliced array. You'll notice this problem arise
@@ -111,6 +135,8 @@ const recurBSearchIdx = (nums, targetNum) => {
   // recursive call into a variable, and adding it to the current stack-frame's
   // midIdx + 1.
 }
+
+recurBSearchIdx(arr1, 2)
 
 
 /*******************************************************************
